@@ -2,7 +2,7 @@
 
 Overview
 ------------
-This project is for banana-pi R2 board, including U-boot and Linux Kernel 4.4.x.
+This project is for banana-pi R2 board, including U-boot and Linux Kernel 4.14.x.
 
 
 Getting started
