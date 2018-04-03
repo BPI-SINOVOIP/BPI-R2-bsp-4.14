@@ -1,2 +1,0 @@
-# Soft dependencies extracted from modules themselves.
-softdep libcrc32c pre: crc32c
