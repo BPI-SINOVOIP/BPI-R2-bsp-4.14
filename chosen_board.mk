@@ -1,0 +1,6 @@
+BOARD=BPI-R2-720P
+SOC=mt7623n
+MACH=mt7623_evb
+UBOOT_CONFIG=mt7623_evb_config
+KERNEL_CONFIG=mt7623n_bananapi_r2_defconfig
+TARGET_PLATFORM=mediatek
