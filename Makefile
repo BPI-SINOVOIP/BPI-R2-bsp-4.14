@@ -17,6 +17,7 @@ U_CONFIG_H=$(U_O_PATH)/include/config.h
 K_DOT_CONFIG=$(K_O_PATH)/.config
 
 ROOTFS=$(CURDIR)/rootfs/linux/default_linux_rootfs.tar.gz
+DTSNAME=mt7623n-bananapi-bpi-r2.dtb
 
 Q=
 J=$(shell expr `grep ^processor /proc/cpuinfo  | wc -l` \* 2)
@@ -48,6 +49,9 @@ $(K_DOT_CONFIG): linux-mt
 
 kernel: $(K_DOT_CONFIG)
 	$(Q)$(MAKE) -C linux-mt ARCH=arm CROSS_COMPILE=${K_CROSS_COMPILE} -j$J INSTALL_MOD_PATH=output UIMAGE_LOADADDR=0x80008000 uImage dtbs
+	## Rebuild uImage with dtb
+	cat linux-mt/arch/arm/boot/zImage linux-mt/arch/arm/boot/dts/${DTSNAME} > linux-mt/arch/arm/boot/zImage-dtb
+	mkimage -A arm -O linux -T kernel -C none -a 80008000 -e 80008000 -n "Linux Kernel $(kernel)" -d linux-mt/arch/arm/boot/zImage-dtb linux-mt/arch/arm/boot/uImage
 	$(Q)$(MAKE) -C linux-mt ARCH=arm CROSS_COMPILE=${K_CROSS_COMPILE} -j$J INSTALL_MOD_PATH=output modules
 	$(Q)$(MAKE) -C linux-mt ARCH=arm CROSS_COMPILE=${K_CROSS_COMPILE} -j$J INSTALL_MOD_PATH=output modules_install
 #	$(Q)$(MAKE) -C linux-mt ARCH=arm CROSS_COMPILE=${K_CROSS_COMPILE} -j$J headers_install
